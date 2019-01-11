@@ -1,0 +1,22 @@
+<ul>
+    <?php foreach ($comments as $comment): ?>
+    <li>
+        <div class="username"><span class="glyphicon glyphicon-user"></span>
+            <b><?= $this->escapeHtml($comment['username']) ?></b>
+            <span class="datetime"><?= $this->Datetime()->format($comment['dt_added']) ?><span>
+        </div>
+        <div class="comment">
+            <?= $comment['text'] ?>
+        </div>
+        <div class="reply">
+            <a href="<?= $this->url('comments', ['action' => 'reply', 'id' => $comment['id']]) ?>">Reply</a>
+        </div>
+        
+       <?php if(!empty($comment['childs'])):?>
+	    <ul>
+            <?php echo $this->Comments()->render( $comment['childs'] ); ?>	    
+	    </ul>  
+	    <?php endif;?>        
+    </li>
+    <?php endforeach; ?>
+</ul>
